@@ -46,7 +46,7 @@ class CategoryController extends Controller
             'slug' => Str::slug($request->title),
         ]);
 
-        // Toastr::success('Data Store Successfully!');
+        Toastr::success('Data Store Successfully!');
         return redirect()->route('category.index');
     }
 
