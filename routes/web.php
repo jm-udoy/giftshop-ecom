@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Backend\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,10 @@ Route::prefix('admin/')->group(function(){
             return view('backend.pages.Dashboard');
         })->name('admin.dashboard');
     });
+
+    /*Resource Controller*/
+    Route::resource('category', CategoryController::class);
 });
+
 
 /*Admin Auth routes */
