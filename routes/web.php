@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\CategoryController;
@@ -26,6 +27,8 @@ Route::prefix('')->group(function(){
     Route::get('/', [HomeController::class, 'home'])->name('home');
     Route::get('/shop', [HomeController::class, 'shopPage'])->name('shop.page');
     Route::get('/single-product/{product_slug}', [HomeController::class, 'productDetails'])->name('productdetail.page');
+    Route::get('/shopping-cart', [CartController::class, 'cartPage'])->name('cart.page');
+    Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('add-to.cart');
 });
 /*Admin Auth routes */
 Route::prefix('admin/')->group(function(){
