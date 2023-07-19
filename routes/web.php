@@ -1,7 +1,8 @@
 <?php
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Backend\CouponController;
@@ -54,6 +55,14 @@ Route::prefix('')->group(function(){
           /*Checkout Page */
         Route::get('checkout', [CheckoutController::class, 'checkoutPage'])->name('customer.checkoutpage');
         Route::post('placeorder', [CheckoutController::class, 'placeOrder'])->name('customer.placeorder');
+
+        // For checking the email tempalte
+        Route::get('email', function(){
+            $order = Order::whereId(1)->with(['billing', 'orderdetails'])->get();
+            return view('frontend.mail.purchaseconfirm', [
+                'order_details' => $order
+            ]);
+        });
     });
 });
 
