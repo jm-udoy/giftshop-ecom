@@ -3,6 +3,7 @@ use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Backend\CouponController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\CustomerController;
+use App\Http\Controllers\Backend\CustomerController as BackendCustomerController;
 use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Frontend\Auth\RegisterController;
 /*
@@ -76,11 +78,14 @@ Route::prefix('admin/')->group(function(){
     Route::middleware(['auth', 'is_admin'])->group(function(){
         Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
         Route::get('logout', [LoginController::class, 'logout'])->name('admin.logout');
+
+         /*Resource Controller*/
+         Route::resource('category', CategoryController::class);
+         Route::resource('testimonial', TestimonialController::class);
+         Route::resource('products', ProductController::class);
+         Route::resource('coupon', CouponController::class);
+         Route::get('order-list', [OrderController::class, 'index'])->name('admin.orderlist');
+         Route::get('customer-list', [BackendCustomerController::class, 'index'])->name('admin.customerlist');
     });
 
-    /*Resource Controller*/
-    Route::resource('category', CategoryController::class);
-    Route::resource('testimonial', TestimonialController::class);
-    Route::resource('products', ProductController::class);
-    Route::resource('coupon', CouponController::class);
 });
